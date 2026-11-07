@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  fleetbase_cache:
+    image: redis:7-alpine
+    container_name: flb_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+
+  fleetbase_database:
+    image: mysql:8.0-oracle
+    container_name: flb_mysql
+    restart: unless-stopped
+    command: ["mysqld", "--skip-log-bin"]
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "fleetbase"
+    ports:
+      - "3307:3306"
+    volumes:
+      - flb_mysql_data:/var/lib/mysql
+
+  fleetbase_api:
+    image: fleetbase/fleetbase-api:latest
+    container_name: flb_api
+    restart: unless-stopped
+    ports:
+      - "8008:8000"
+    environment:
+      DATABASE_URL: "mysql://root@fleetbase_database/fleetbase"
+      CACHE_URL: tcp://fleetbase_cache
+      REDIS_URL: tcp://fleetbase_cache
+    depends_on:
+      - fleetbase_database
+      - fleetbase_cache
+
+volumes:
+  flb_mysql_data:
+

@@ -1,0 +1,25 @@
+{
+  "hub": {
+    "city": "Pune",
+    "cluster": "Bhosari MIDC / Chakan Auto Belt",
+    "coordinates": [73.8567, 18.5204]
+  },
+  "corridors": [
+    { "origin": "Mumbai", "distance_km": 150.0, "transit_hours": 3.7 },
+    { "origin": "Navi Mumbai", "distance_km": 130.0, "transit_hours": 3.2 },
+    { "origin": "Thane", "distance_km": 155.0, "transit_hours": 3.8 },
+    { "origin": "Nashik", "distance_km": 210.0, "transit_hours": 4.8 },
+    { "origin": "Kolhapur", "distance_km": 235.0, "transit_hours": 5.2 },
+    { "origin": "Aurangabad", "distance_km": 235.0, "transit_hours": 5.2 },
+    { "origin": "Surat", "distance_km": 415.0, "transit_hours": 9.2 },
+    { "origin": "Ahmedabad", "distance_km": 660.0, "transit_hours": 14.5 },
+    { "origin": "Nagpur", "distance_km": 710.0, "transit_hours": 15.8 }
+  ],
+  "vehicle_tiers": {
+    "pickup_1.5t": { "rate_per_km": 22.0, "loading_fee": 800.0, "toll_factor": 0.05 },
+    "eicher_5t": { "rate_per_km": 32.0, "loading_fee": 1200.0, "toll_factor": 0.07 },
+    "10_ton_truck": { "rate_per_km": 45.0, "loading_fee": 1500.0, "toll_factor": 0.08 },
+    "trailer_25t": { "rate_per_km": 75.0, "loading_fee": 2800.0, "toll_factor": 0.10 }
+  }
+}
+
