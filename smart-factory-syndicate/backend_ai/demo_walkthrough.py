@@ -38,7 +38,7 @@ def run_walkthrough():
     profiles = get_vehicle_profiles()
     print(f"✔ Fleetbase Engine calibrated with {len(profiles)} transport tiers:")
     for k, v in profiles.items():
-        print(f"   • {v['name']} ({v['capacity_metric_tons']} MT) @ ₹{v['rate_per_km_inr']}/km [Handling: ₹{v['terminal_handling_inr']}]")
+        print(f"   • {v['name']} ({v.get('capacity_mt', 10.0)} MT) @ ₹{v.get('rate_per_km', 45.0)}/km [Handling: ₹{v.get('fixed_loading', 1500.0)}]")
 
     # 3. Phase 2: RAG Pipeline & Unstructured WhatsApp Ingestion
     print("\n[STEP 3] RAG INGESTION — PARSING UNSTRUCTURED HINGLISH WHATSAPP QUOTE...")
@@ -64,8 +64,8 @@ def run_walkthrough():
     print(f"   • Fleetbase Order ID : {order['id']}")
     print(f"   • Tracking Number    : {order['tracking_number']}")
     print(f"   • Waypoints Route    : {order['payload']['route']['origin']} -> {order['payload']['route']['destination']}")
-    print(f"   • Carrier Vehicle    : {order['carrier']['vehicle_type']}")
     print(f"   • Ledger Invoice Ref : {order['financials']['ledger_invoice_id']}")
+    print(f"   • Freight Cost (INR) : ₹{order['financials']['freight_cost_inr']:,.2f}")
 
     # 5. Phase 3: Autonomous Procurement Stock Scanner
     print("\n[STEP 5] AUTONOMOUS PROCUREMENT AGENT — SAFETY STOCK SCANNER...")
@@ -93,8 +93,8 @@ def run_walkthrough():
     print("Incoming Buyer RFQ with target price: ₹65,000.00/MT (Below break-even!)")
     print(f"✔ Guardrail Evaluation: {bid['guardrail']['status']}")
     print(f"   • Total Cost of Goods + Freight: ₹{bid['breakdown']['total_cost_of_goods_and_freight']:,.2f}")
-    print(f"   • Minimum Break-Even Bid Price : ₹{bid['guardrail']['minimum_breakeven_bid_price']:,.2f}/MT")
-    print(f"   • Suggested Profitable Bid     : ₹{bid['quotation']['suggested_unit_bid_price']:,.2f}/MT")
+    print(f"   • Minimum Break-Even Unit Cost : ₹{bid['breakdown']['total_cost_per_unit']:,.2f}/MT")
+    print(f"   • Suggested Profitable Bid     : ₹{bid['quotation']['suggested_unit_price']:,.2f}/MT")
     print(f"   • Guardrail Warning Message    : {bid['guardrail']['warning_message']}")
 
     # 7. Phase 4: Responsive AI Clusters (Syndicate Demand Pooling & Milk-Run)
